@@ -1,0 +1,14 @@
+* How to write a Lexer
+
+** keywords
+
+** variable
+
+** operators
+
+** delimirators
+ 
+** constant
+  1) string
+  2) numbers: interger/ float
+  3) bool et. 
