@@ -2,14 +2,14 @@
 
 (define operators
   '(
-    ##### 3 len ####
+    ;;; 3 len ;;;;
     '("!==" "T_IS_NOT_IDENTICAL" 281)
     '("===" "T_IS_IDENTICAL" 282)
     '("<<<" "T_START_HEREDOC" 378)
     '("**=" "T_POW_EQUAL" 268)
     '(">>=" "T_SR_EQUAL" 268)
     '("<<=" "T_SL_EQUAL" 269)
-    ##### 2 len ####
+    ;;;; 2 len ;;;;
     '("**" "T_POW" 300)
     '(".." "T_ELLIPSIS" 389)
     '("^=" "T_XOR_EQUAL" 270)
@@ -36,11 +36,19 @@
     '("::" "T_PAAMAYIM_NEKUDOTAYIM" 382)
     ))
 
-;; (define opertor?
-;;   (lambda (str)
-;;     (let
-;;     (if (string=? str (car item))
-;;         #f)
+(define operator?
+  (lambda (str)
+    (letrec ([iterator
+              (lambda (lst)
+                (case
+                    [(null? lst)
+                     #f]
+                  [(string=? str (car lst))
+                   #t]
+                  
+                  [else 
+                   (iterator (cdr lst))]))])
+      (iterator oprator))))
               
 
 (define keywords
