@@ -220,7 +220,7 @@
 (define html-mode #t)
 
 
-(define code "<?php echo \"Hello, word\";?>")
+(define code "<?php echo $i=5+3+2. \"Hello, word\";?>")
 
 
 
