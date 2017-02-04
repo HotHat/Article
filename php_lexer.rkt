@@ -36,7 +36,7 @@
     '("::" "T_PAAMAYIM_NEKUDOTAYIM" 382)
     ))
 
-(define define-test
+(define define-list
   (λ (lst)
     (λ (str)
       (letrec ([iterator
@@ -44,7 +44,7 @@
                 (cond
                   [(null? lst)
                    #f]
-                  [(string=? str (car lst))
+                  [(string=? str (caar lst))
                    #t]
                   [else 
                    (iterator (cdr lst))]))])
@@ -155,8 +155,8 @@
     '("\\" "T_NS_SEPARATOR" 386)
     ))
 
-(define operator? (define-test operator))
-(define keywords? (define-test keywords))
+(define operator? (define-list operator))
+(define keywords? (define-list keywords))
 
 
 (define spec
@@ -181,8 +181,28 @@
     '("" "T_END_HEREDOC" 379)
     ))
 
+(define define-string
+  (λ (str)
+    (λ (ch)
+      (letrec ([lst (list-string str)]
+             [iterator
+              (λ (ch lst)
+                (cond
+                  [(null? lst)
+                   #f]
+                  [(string=? ch (car lst))
+                   #t]
+                  [else
+                   (iterator ch (cdr lst))]))])
+      (iterator ch lst)))))
 
+
+(define whitespace "\t\r\n")
 (define  delimirator ";(){}[],~@`=+/-*.$|^&<>%!?:\"'\\")
+
+(define whitespace? (define-string whitespace))
+(define delimirator? (define-string delimirator))
+
 (define delimirator?
   (λ (ch)
     (letrec ([lst (list-string delimitor)]
@@ -198,5 +218,9 @@
       (iterator ch lst))))
 
 (define html-mode #t)
+
+
+(define code "<?php echo \"Hello, word\";?>")
+
 
 
