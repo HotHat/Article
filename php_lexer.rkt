@@ -36,19 +36,32 @@
     '("::" "T_PAAMAYIM_NEKUDOTAYIM" 382)
     ))
 
-(define operator?
-  (lambda (str)
-    (letrec ([iterator
+(define define-test
+  (λ (lst)
+    (λ (str)
+      (letrec ([iterator
               (lambda (lst)
-                (case
-                    [(null? lst)
-                     #f]
+                (cond
+                  [(null? lst)
+                   #f]
                   [(string=? str (car lst))
                    #t]
-                  
                   [else 
                    (iterator (cdr lst))]))])
-      (iterator oprator))))
+      (iterator oprator)))))
+
+;; (define operator?
+;;   (lambda (str)
+;;     (letrec ([iterator
+;;               (lambda (lst)
+;;                 (cond
+;;                   [(null? lst)
+;;                    #f]
+;;                   [(string=? str (car lst))
+;;                    #t]
+;;                   [else 
+;;                    (iterator (cdr lst))]))])
+;;       (iterator oprator))))
               
 
 (define keywords
@@ -140,8 +153,11 @@
     '("__namespace__" "T_NS_C" 384)
     '("__DIR__" "T_DIR" 385)
     '("\\" "T_NS_SEPARATOR" 386)
-
     ))
+
+(define operator? (define-test operator))
+(define keywords? (define-test keywords))
+
 
 (define spec
   '(
@@ -164,3 +180,23 @@
     '("r(\t\r\n)" "T_WHITESPACE" 377)
     '("" "T_END_HEREDOC" 379)
     ))
+
+
+(define  delimirator ";(){}[],~@`=+/-*.$|^&<>%!?:\"'\\")
+(define delimirator?
+  (λ (ch)
+    (letrec ([lst (list-string delimitor)]
+             [iterator
+              (λ (ch lst)
+                (cond
+                  [(null? lst)
+                   #f]
+                  [(string=? ch (car lst))
+                   #t]
+                  [else
+                   (iterator ch (cdr lst))]))])
+      (iterator ch lst))))
+
+(define html-mode #t)
+
+
